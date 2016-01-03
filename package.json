@@ -10,6 +10,7 @@
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "adbkit": "~2.3.1"
+    "adbkit": "~2.3.1",
+    "gm": "~1.21.1"
   }
 }
