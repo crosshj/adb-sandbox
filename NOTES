@@ -1,6 +1,57 @@
 
 
-
-
+-----ADB
+// screen capture
 adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screen.png && gpicview screen.png
+
+// list packages
+adb shell 'pm list packages -f' | sed -e 's/.*=//' | sort
+
+//find main activity
+adb shell monkey -p {PACKAGE NAME FROM LIST PACKAGE STEP} -c android.intent.category.LAUNCHER 1
+adb shell logcat -d | grep 'START u0' | tail -n 1 | sed 's/.*cmp=\(.*\)} .*/\1/g'
+
+
+-----OTHER
+
+// find pixels
+https://www.google.com/search?client=ubuntu&channel=fs&q=node+image+process+find+pixels&ie=utf-8&oe=utf-8
+
+
+-----DK
+
+com.ea.game.dungeonkeeper_na
+
+LOCATIONS: (adb shell input tap x y)
+
+PLAY MENU:  20 200 (open), 430 200 (close)
+IMPS: 400 10 (open) 1200 10 (close) 30 30 (back)
+GEMS: 900 10 (open) 1200 10 (close)
+GOLD: 1050 10 (open) 1200 10 (close)
+STONE: 1050 60 (open) 1200 10 (close)
+COMBAT: 1250 120
+MANA: 1250 200
+
+GUILD: 1200 400 (open) 1050 30 (close)
+	PERKS: 1050 200
+	BANNER: 400 700
+	DONATE: 500 700 (open) 970 120 (close)
+		SKELE: 400 300
+		TROLL: 500 300
+		WAR: 700 300
+		MISS: 900 400 (add) 970 400 (remove)
+
+		DONATE: 600 600
+	STAR: 600 700
+	MESS: 700 700
+	SEARCH: 800 700
+	MAIL: 890 700
+
+MAIL: 1200 450 (open) 1050 30 (close)
+CHEST: 1200 500 (open) 1050 30 (close)
+BUILD: 1200 600 (open) 1200 10 (close)
+
+bottom right corner: adb shell input swipe 500 500 0 0
+
+android popup: adb shell input swipe 0 0 800 1200
 

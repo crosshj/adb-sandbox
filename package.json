@@ -11,6 +11,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "adbkit": "~2.3.1",
-    "gm": "~1.21.1"
+    "gm": "~1.21.1",
+    "adbkit-monkey": "~1.0.1"
   }
 }
