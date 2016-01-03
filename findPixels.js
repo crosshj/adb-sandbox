@@ -9,6 +9,7 @@ also check out:
 
 var adb = require('adbkit');
 var fs = require('fs');
+var gm = require('gm').subClass({imageMagick: true});
 
 var client = adb.createClient();
 
@@ -24,15 +25,21 @@ var findPixels = function(clientId, callback){
 		var yLoc = 0;
 		//console.log(screencap);
 		var writeStream = fs.createWriteStream('./screencap.png');
+		
+		screencap.on('end', function() {
+			gm('./screencap.png')
+				.rotate('black', '<90')
+				.write('./screencap.png', function(err){
+					if (err){ return callback('gm.rotate: ' + err); }
+					callback(null, { 
+								x: xLoc, 
+								y: yLoc  
+					});
+				});			
+
+		});
+
 		screencap.pipe(writeStream);
-		// fs.writeFile('screencap.png', screencap, function (err) {
-		// 	if (err){ return callback(err); };
-		// 	pngWriteCB();
-		// });
-		callback(null, { 
-					x: xLoc, 
-					y: yLoc  
-			});
 	};
 	client.screencap(clientId, screencapCB);
 };
